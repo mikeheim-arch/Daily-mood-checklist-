@@ -1,0 +1,231 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>0247d71f5e7f4bf8f6cc66d2bd3916bd_3_Mood_App_code</title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css">
+body {
+ margin: 48px 48px 48px 48px;
+ background-color: canvas;
+ direction: ltr;
+}
+/* ========== Text Styles ========== */
+hr { color: canvastext}
+body, table, span.rvts0 /* Normal text */
+{
+ font-size: 10pt;
+ font-family: 'Arial', 'Helvetica', sans-serif;
+ font-style: normal;
+ font-weight: normal;
+ color: canvastext;
+ text-decoration: none;
+}
+span.rvts1 /* Heading */
+{
+ font-weight: bold;
+ color: #0000ff;
+}
+span.rvts2 /* Subheading */
+{
+ font-weight: bold;
+ color: #000080;
+}
+span.rvts3 /* Keywords */
+{
+ font-style: italic;
+ color: #800000;
+}
+a.rvts4, span.rvts4 /* Jump 1 */
+{
+ color: #008000;
+ text-decoration: underline;
+}
+a.rvts5, span.rvts5 /* Jump 2 */
+{
+ color: #008000;
+ text-decoration: underline;
+}
+span.rvts6
+{
+ font-size: 11pt;
+ font-family: 'ArialMT';
+ color: #000000;
+}
+/* ========== Para Styles ========== */
+p,ul,ol /* Paragraph Style */
+{
+ text-align: left;
+ text-indent: 0px;
+ padding: 0px 0px 0px 0px;
+ margin: 0px 0px 0px 0px;
+}
+.rvps1 /* Centered */
+{
+ text-align: center;
+}
+.rvps2
+{
+ line-height: 1.38;
+ margin: 0px 0px 16px 0px;
+}
+li.noindent { margin-left: 0; padding-left: 0; }
+</style>
+</head>
+<body>
+<p class=rvps2><span class="rvts6">&lt;!DOCTYPE html&gt;</span></p>
+<p class=rvps2><span class="rvts6">&lt;html lang="en"&gt;</span></p>
+<p class=rvps2><span class="rvts6">&lt;head&gt;</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &lt;meta charset="UTF-8"&gt;</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &lt;title&gt;Secure Wellness App&lt;/title&gt;</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &lt;script src="https://cdn.jsdelivr.net"&gt;&lt;/script&gt;</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &lt;style&gt;</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; :root { --bg: #f4f7f9; --card: #ffffff; --primary: #4a90e2; --alert: #e74c3c; --lock: #2c3e50; }</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; body { font-family: -apple-system, sans-serif; background: var(--bg); padding: 15px; max-width: 600px; margin: auto; }</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; .card { background: var(--card); padding: 20px; border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 20px; }</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; .label { display: block; margin-bottom: 8px; font-weight: 600; }</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; .scales { display: flex; gap: 4px; margin-bottom: 15px; }</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; .scale-btn { border: 1px solid #ddd; background: #fff; padding: 10px; border-radius: 8px; flex: 1; cursor: pointer; }</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; .scale-btn.active { background: var(--primary); color: white; border-color: var(--primary); }</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; textarea { width: 100%; border: 1px solid #ddd; border-radius: 8px; padding: 10px; box-sizing: border-box; margin-bottom: 10px; }</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; .btn-save { width: 100%; padding: 15px; background: var(--primary); color: white; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; }</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; #lock-screen { position: fixed; inset: 0; background: var(--lock); color: white; z-index: 1000; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; }</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; .recovery-box { background: #eee; padding: 10px; border-radius: 5px; color: #333; font-family: monospace; margin: 10px 0; }</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; .alert-box { background: var(--alert); color: white; padding: 15px; border-radius: 10px; display: none; margin-bottom: 15px; text-align: center; }</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &lt;/style&gt;</span></p>
+<p class=rvps2><span class="rvts6">&lt;/head&gt;</span></p>
+<p class=rvps2><span class="rvts6">&lt;body&gt;</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &lt;!-- Lock Screen --&gt;</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &lt;div id="lock-screen"&gt;</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &lt;h2 id="lock-title"&gt;App Locked&lt;/h2&gt;</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &lt;input type="password" id="pin-input" placeholder="4-Digit PIN" maxlength="4" style="font-size: 1.5rem; text-align: center; width: 150px; margin-bottom: 15px;"&gt;</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &lt;button class="btn-save" style="width:150px" onclick="checkPin()"&gt;Unlock&lt;/button&gt;</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &lt;p onclick="showRecovery()" style="font-size: 0.8rem; text-decoration: underline; margin-top: 20px; cursor: pointer;"&gt;Forgot PIN?&lt;/p&gt;</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &lt;div id="recovery-ui" style="display:none; margin-top: 10px;"&gt;</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;input type="text" id="recovery-input" placeholder="Enter Recovery Phrase" style="padding: 10px; border-radius: 5px;"&gt;</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;button onclick="resetPin()" style="padding: 10px; margin-top: 5px;"&gt;Reset PIN&lt;/button&gt;</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &lt;/div&gt;</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &lt;!-- Emergency Alert --&gt;</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &lt;div id="suicide-alert" class="alert-box"&gt;</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &lt;strong&gt;DISTRESS ALERT:&lt;/strong&gt; High level flagged. &lt;br&gt;</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &lt;a id="sms-link" style="color:white; font-weight:bold; text-decoration:underline;"&gt;Send SOS Text to Contact&lt;/a&gt;</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &lt;/div&gt;</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &lt;!-- Setup Card --&gt;</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &lt;div class="card" id="setup-card" style="display:none;"&gt;</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &lt;h2&gt;Initial Security Setup&lt;/h2&gt;</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &lt;p&gt;Save this recovery phrase in a safe place. You will need it if you forget your PIN.&lt;/p&gt;</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &lt;div id="generated-phrase" class="recovery-box"&gt;&lt;/div&gt;</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &lt;input type="tel" id="contact-phone" placeholder="Emergency Phone Number" style="width:100%; padding:10px; margin-bottom:10px;"&gt;</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &lt;input type="password" id="set-pin" placeholder="Set 4-Digit PIN" maxlength="4" style="width:100%; padding:10px; margin-bottom:10px;"&gt;</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &lt;button class="btn-save" onclick="saveSettings()"&gt;Secure App &amp; Start&lt;/button&gt;</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &lt;/div&gt;</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &lt;!-- Main App --&gt;</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &lt;div id="main-content" style="display:none;"&gt;</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &lt;div class="card"&gt;</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;h2&gt;Daily Check-in&lt;/h2&gt;</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div id="checklist"&gt;&lt;/div&gt;</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;textarea id="daily-notes" placeholder="Notes (Holidays, Triggers, Events)"&gt;&lt;/textarea&gt;</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;button class="btn-save" onclick="saveData()"&gt;Save Entry&lt;/button&gt;</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &lt;div class="card"&gt;</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;h2&gt;18-Month Trends&lt;/h2&gt;</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;canvas id="wellnessChart" style="height:250px"&gt;&lt;/canvas&gt;</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;button class="btn-save" style="background:#6c757d; margin-top:10px;" onclick="exportToCSV()"&gt;Export Data (CSV)&lt;/button&gt;</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &lt;/div&gt;</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &lt;script&gt;</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; const categories = ["Feeling guilty", "Memory problems", "Concentration problems", "Suicidal tendency"];</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; const words = ["apple", "river", "mountain", "shield", "bright", "forest", "silver", "echo"];</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; let chart;</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; function init() {</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if (!localStorage.getItem('app_pin')) {</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; document.getElementById('lock-screen').style.display = 'none';</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; document.getElementById('setup-card').style.display = 'block';</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; const phrase = words.sort(() =&gt; 0.5 - Math.random()).slice(0, 3).join("-");</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; document.getElementById('generated-phrase').innerText = phrase;</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; localStorage.setItem('recovery_phrase', phrase);</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; const container = document.getElementById('checklist');</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; categories.forEach(cat =&gt; {</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; container.innerHTML += `&lt;div class="item"&gt;&lt;span class="label"&gt;${cat}&lt;/span&gt;&lt;div class="scales" data-category="${cat}"&gt;</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ${.map(n =&gt; `&lt;button class="scale-btn" onclick="selectScale(this, ${n})"&gt;${n}&lt;/button&gt;`).join('')}</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;&lt;/div&gt;`;</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; });</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; renderChart();</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; }</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; function saveSettings() {</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; const pin = document.getElementById('set-pin').value;</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; const phone = document.getElementById('contact-phone').value;</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if (pin.length === 4 &amp;&amp; phone) {</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; localStorage.setItem('app_pin', pin);</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; localStorage.setItem('emergency_phone', phone);</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; location.reload();</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } else { alert("Complete all fields."); }</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; }</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; function checkPin() {</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if (document.getElementById('pin-input').value === localStorage.getItem('app_pin')) {</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; document.getElementById('lock-screen').style.display = 'none';</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; document.getElementById('main-content').style.display = 'block';</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } else { alert("Wrong PIN"); }</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; }</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; function showRecovery() { document.getElementById('recovery-ui').style.display = 'block'; }</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; function resetPin() {</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if (document.getElementById('recovery-input').value === localStorage.getItem('recovery_phrase')) {</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; localStorage.removeItem('app_pin');</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; location.reload();</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } else { alert("Invalid phrase."); }</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; }</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; function selectScale(btn, val) {</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; btn.parentElement.querySelectorAll('.scale-btn').forEach(b =&gt; b.classList.remove('active'));</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; btn.classList.add('active');</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if (btn.parentElement.dataset.category === "Suicidal tendency" &amp;&amp; val &gt;= 3) {</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; document.getElementById('suicide-alert').style.display = 'block';</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; const phone = localStorage.getItem('emergency_phone');</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; document.getElementById('sms-link').href = `sms:${phone}?&amp;body=I need support. High level flagged in wellness app.`;</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } else if (btn.parentElement.dataset.category === "Suicidal tendency") {</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; document.getElementById('suicide-alert').style.display = 'none';</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; }</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; function saveData() {</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; const entry = { date: new Date().toLocaleDateString(), notes: document.getElementById('daily-notes').value };</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; document.querySelectorAll('.scales').forEach(scale =&gt; {</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; const active = scale.querySelector('.active');</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; entry[scale.dataset.category] = active ? parseInt(active.innerText) : 0;</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; });</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; let history = JSON.parse(localStorage.getItem('wellness_history') || '[]');</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; history.push(entry);</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; localStorage.setItem('wellness_history', JSON.stringify(history.slice(-540)));</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; renderChart();</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; alert("Entry Saved.");</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; }</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; function renderChart() {</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; const history = JSON.parse(localStorage.getItem('wellness_history') || '[]');</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if (history.length === 0) return;</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; const ctx = document.getElementById('wellnessChart').getContext('2d');</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if (chart) chart.destroy();</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; chart = new Chart(ctx, {</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; type: 'line',</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; data: {</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; labels: history.map(e =&gt; e.date),</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; datasets: categories.map((cat, i) =&gt; ({</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; label: cat, data: history.map(e =&gt; e[cat]),</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; borderColor: ['#ff6384', '#36a2eb', '#cc65fe', '#ffce56'][i], tension: 0.3</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }))</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; },</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; options: { maintainAspectRatio: false, scales: { y: { min: 0, max: 5 } } }</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; });</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; }</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; function exportToCSV() {</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; const history = JSON.parse(localStorage.getItem('wellness_history') || '[]');</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; let csv = "Date," + categories.join(",") + ",Notes\n";</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; history.forEach(e =&gt; csv += `${e.date},${categories.map(c =&gt; e[c]).join(",")},"${e.notes}"\n`);</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; const blob = new Blob([csv], { type: 'text/csv' });</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; const url = URL.createObjectURL(blob);</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; const a = document.createElement('a'); a.href = url; a.download = 'wellness_trends.csv'; a.click();</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; }</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &nbsp; &nbsp; init();</span></p>
+<p class=rvps2><span class="rvts6">&nbsp; &nbsp; &lt;/script&gt;</span></p>
+<p class=rvps2><span class="rvts6">&lt;/body&gt;</span></p>
+<p class=rvps2><span class="rvts6">&lt;/html&gt;</span></p>
+</body></html>
