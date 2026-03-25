@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Secure Wellness App</title>
+
+    <script src="https://cdn.jsdelivr.net"></script>
+
+    <style>
+
+        :root { --bg: #f4f7f9; --card: #ffffff; --primary: #4a90e2; --alert: #e74c3c; --lock: #2c3e50; }
+
+        body { font-family: -apple-system, sans-serif; background: var(--bg); padding: 15px; max-width: 600px; margin: auto; }
+
+        .card { background: var(--card); padding: 20px; border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 20px; }
+
+        .label { display: block; margin-bottom: 8px; font-weight: 600; }
+
+        .scales { display: flex; gap: 4px; margin-bottom: 15px; }
+
+        .scale-btn { border: 1px solid #ddd; background: #fff; padding: 10px; border-radius: 8px; flex: 1; cursor: pointer; }
+
+        .scale-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+
+        textarea { width: 100%; border: 1px solid #ddd; border-radius: 8px; padding: 10px; box-sizing: border-box; margin-bottom: 10px; }
+
+        .btn-save { width: 100%; padding: 15px; background: var(--primary); color: white; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; }
+
+        #lock-screen { position: fixed; inset: 0; background: var(--lock); color: white; z-index: 1000; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; }
+
+        .recovery-box { background: #eee; padding: 10px; border-radius: 5px; color: #333; font-family: monospace; margin: 10px 0; }
+
+        .alert-box { background: var(--alert); color: white; padding: 15px; border-radius: 10px; display: none; margin-bottom: 15px; text-align: center; }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- Lock Screen -->
+
+    <div id="lock-screen">
+
+        <h2 id="lock-title">App Locked</h2>
+
+        <input type="password" id="pin-input" placeholder="4-Digit PIN" maxlength="4" style="font-size: 1.5rem; text-align: center; width: 150px; margin-bottom: 15px;">
+
+        <button class="btn-save" style="width:150px" onclick="checkPin()">Unlock</button>
+
+        <p onclick="showRecovery()" style="font-size: 0.8rem; text-decoration: underline; margin-top: 20px; cursor: pointer;">Forgot PIN?</p>
+
+        <div id="recovery-ui" style="display:none; margin-top: 10px;">
+
+            <input type="text" id="recovery-input" placeholder="Enter Recovery Phrase" style="padding: 10px; border-radius: 5px;">
+
+            <button onclick="resetPin()" style="padding: 10px; margin-top: 5px;">Reset PIN</button>
+
+        </div>
+
+    </div>
+
+    <!-- Emergency Alert -->
+
+    <div id="suicide-alert" class="alert-box">
+
+        <strong>DISTRESS ALERT:</strong> High level flagged. <br>
+
+        <a id="sms-link" style="color:white; font-weight:bold; text-decoration:underline;">Send SOS Text to Contact</a>
+
+    </div>
+
+    <!-- Setup Card -->
+
+    <div class="card" id="setup-card" style="display:none;">
+
+        <h2>Initial Security Setup</h2>
+
+        <p>Save this recovery phrase in a safe place. You will need it if you forget your PIN.</p>
+
+        <div id="generated-phrase" class="recovery-box"></div>
+
+        <input type="tel" id="contact-phone" placeholder="Emergency Phone Number" style="width:100%; padding:10px; margin-bottom:10px;">
+
+        <input type="password" id="set-pin" placeholder="Set 4-Digit PIN" maxlength="4" style="width:100%; padding:10px; margin-bottom:10px;">
+
+        <button class="btn-save" onclick="saveSettings()">Secure App & Start</button>
+
+    </div>
+
+    <!-- Main App -->
+
+    <div id="main-content" style="display:none;">
+
+        <div class="card">
+
+            <h2>Daily Check-in</h2>
+
+            <div id="checklist"></div>
+
+            <textarea id="daily-notes" placeholder="Notes (Holidays, Triggers, Events)"></textarea>
+
+            <button class="btn-save" onclick="saveData()">Save Entry</button>
+
+        </div>
+
+        <div class="card">
+
+            <h2>18-Month Trends</h2>
+
+            <canvas id="wellnessChart" style="height:250px"></canvas>
+
+            <button class="btn-save" style="background:#6c757d; margin-top:10px;" onclick="exportToCSV()">Export Data (CSV)</button>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        const categories = ["Feeling guilty", "Memory problems", "Concentration problems", "Suicidal tendency"];
+
+        const words = ["apple", "river", "mountain", "shield", "bright", "forest", "silver", "echo"];
+
+        let chart;
+
+        function init() {
+
+            if (!localStorage.getItem('app_pin')) {
+
+                document.getElementById('lock-screen').style.display = 'none';
+
+                document.getElementById('setup-card').style.display = 'block';
+
+                const phrase = words.sort(() => 0.5 - Math.random()).slice(0, 3).join("-");
+
+                document.getElementById('generated-phrase').innerText = phrase;
+
+                localStorage.setItem('recovery_phrase', phrase);
+
+            }
+
+            const container = document.getElementById('checklist');
+
+            categories.forEach(cat => {
+
+                container.innerHTML += `<div class="item"><span class="label">${cat}</span><div class="scales" data-category="${cat}">
+
+                    ${.map(n => `<button class="scale-btn" onclick="selectScale(this, ${n})">${n}</button>`).join('')}
+
+                </div></div>`;
+
+            });
+
+            renderChart();
+
+        }
+
+        function saveSettings() {
+
+            const pin = document.getElementById('set-pin').value;
+
+            const phone = document.getElementById('contact-phone').value;
+
+            if (pin.length === 4 && phone) {
+
+                localStorage.setItem('app_pin', pin);
+
+                localStorage.setItem('emergency_phone', phone);
+
+                location.reload();
+
+            } else { alert("Complete all fields."); }
+
+        }
+
+        function checkPin() {
+
+            if (document.getElementById('pin-input').value === localStorage.getItem('app_pin')) {
+
+                document.getElementById('lock-screen').style.display = 'none';
+
+                document.getElementById('main-content').style.display = 'block';
+
+            } else { alert("Wrong PIN"); }
+
+        }
+
+        function showRecovery() { document.getElementById('recovery-ui').style.display = 'block'; }
+
+        function resetPin() {
+
+            if (document.getElementById('recovery-input').value === localStorage.getItem('recovery_phrase')) {
+
+                localStorage.removeItem('app_pin');
+
+                location.reload();
+
+            } else { alert("Invalid phrase."); }
+
+        }
+
+        function selectScale(btn, val) {
+
+            btn.parentElement.querySelectorAll('.scale-btn').forEach(b => b.classList.remove('active'));
+
+            btn.classList.add('active');
+
+            if (btn.parentElement.dataset.category === "Suicidal tendency" && val >= 3) {
+
+                document.getElementById('suicide-alert').style.display = 'block';
+
+                const phone = localStorage.getItem('emergency_phone');
+
+                document.getElementById('sms-link').href = `sms:${phone}?&body=I need support. High level flagged in wellness app.`;
+
+            } else if (btn.parentElement.dataset.category === "Suicidal tendency") {
+
+                document.getElementById('suicide-alert').style.display = 'none';
+
+            }
+
+        }
+
+        function saveData() {
+
+            const entry = { date: new Date().toLocaleDateString(), notes: document.getElementById('daily-notes').value };
+
+            document.querySelectorAll('.scales').forEach(scale => {
+
+                const active = scale.querySelector('.active');
+
+                entry[scale.dataset.category] = active ? parseInt(active.innerText) : 0;
+
+            });
+
+            let history = JSON.parse(localStorage.getItem('wellness_history') || '[]');
+
+            history.push(entry);
+
+            localStorage.setItem('wellness_history', JSON.stringify(history.slice(-540)));
+
+            renderChart();
+
+            alert("Entry Saved.");
+
+        }
+
+        function renderChart() {
+
+            const history = JSON.parse(localStorage.getItem('wellness_history') || '[]');
+
+            if (history.length === 0) return;
+
+            const ctx = document.getElementById('wellnessChart').getContext('2d');
+
+            if (chart) chart.destroy();
+
+            chart = new Chart(ctx, {
+
+                type: 'line',
+
+                data: {
+
+                    labels: history.map(e => e.date),
+
+                    datasets: categories.map((cat, i) => ({
+
+                        label: cat, data: history.map(e => e[cat]),
+
+                        borderColor: ['#ff6384', '#36a2eb', '#cc65fe', '#ffce56'][i], tension: 0.3
+
+                    }))
+
+                },
+
+                options: { maintainAspectRatio: false, scales: { y: { min: 0, max: 5 } } }
+
+            });
+
+        }
+
+        function exportToCSV() {
+
+            const history = JSON.parse(localStorage.getItem('wellness_history') || '[]');
+
+            let csv = "Date," + categories.join(",") + ",Notes\n";
+
+            history.forEach(e => csv += `${e.date},${categories.map(c => e[c]).join(",")},"${e.notes}"\n`);
+
+            const blob = new Blob([csv], { type: 'text/csv' });
+
+            const url = URL.createObjectURL(blob);
+
+            const a = document.createElement('a'); a.href = url; a.download = 'wellness_trends.csv'; a.click();
+
+        }
+
+        init();
+
+    </script>
+
+</body>
+
+</html>
